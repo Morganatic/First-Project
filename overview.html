@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<head>
-  <!-- STANDARD META -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  
-  <!-- SITE PROPERTIES -->
-  <title>Moodsphere - Home</title>
+    <!-- SITE PROPERTIES -->
+    <title>Moodsphere - Overview</title>
 
     <!-- STYLESHEETS: SEMANTIC UI, ICONS -->
     <link
@@ -25,17 +23,17 @@
       rel="stylesheet"
       href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
     />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Fira+Sans:800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css" />
-  
-  <!-- CUSTOM STYLESHEET -->
-  <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
-</head>
-  
-  <body>
+
+    <!-- CUSTOM STYLESHEET -->
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+  </head>
+
+  <body class="site">
     <!-- NAVIGATION -->
     <div class="ui sticky secondary pointing menu">
       <img
@@ -45,13 +43,13 @@
       />
       <p class="ui header item app-name">Moodsphere</p>
       <div class="right menu">
-        <a class="active item" href="homepage.html">
+        <a class="item" href="homepage.html">
           Home
         </a>
         <a id="add-entry-btn" class="item">
           Add Entry
         </a>
-        <a class="item" href="overview.html">
+        <a class="active item" href="overview.html">
           Overview
         </a>
         <a class="item" href="discover.html">
@@ -61,73 +59,6 @@
           Logout
         </a>
       </div>
-    </div>
-
-    <div class="ui inverted vertical masthead center aligned segment">
-      <div class="jumbotron">
-        <!-- MAIN CONTENT -->
-        <div class="header-container">
-          <div id="weather">
-            <p id="display-date-weather"></p>
-          </div>
-          <h1 class="ui inverted header">Welcome!</h1>
-          <h2 id="quote"></h2>
-          <hr class="short" />
-          <h4 id="author"></h4>
-        </div>
-      </div>
-    </div>
-
-    <div class="ui container hotlines">
-      <h3 class="hotlines-title">Mental Health Hotlines</h3>
-      <table id="hotlines-table" class="ui selectable celled table">
-        <thead class="hotlines-header">
-          <tr>
-            <td>Hotline</td>
-            <td>Number</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>SAMHSA National Hotline</td>
-            <td>(800) 662-4357</td>
-          </tr>
-          <tr>
-            <td>Anxiety and Depression Association of America (ADAA)</td>
-            <td>(240) 485-1001</td>
-          </tr>
-          <tr>
-            <td>Depression and Bipolar Support Alliance (DBSA)</td>
-            <td>(800) 826-3632</td>
-          </tr>
-          <tr>
-            <td>International OCD Foundation</td>
-            <td>(617) 973-5801</td>
-          </tr>
-          <tr>
-            <td>National Center of Excellence of Eating Disorders (NCEED)</td>
-            <td>(800) 931-2237</td>
-          </tr>
-          <tr>
-            <td>
-              Schizophrenia and Related Disorders Alliance of America (SARDAA)
-            </td>
-            <td>(240) 423-9432</td>
-          </tr>
-          <tr>
-            <td>American Foundation for Suicide Prevention</td>
-            <td>(888) 333-2377</td>
-          </tr>
-          <tr>
-            <td>National Domestic Violence Hotline</td>
-            <td>(800) 799-7233</td>
-          </tr>
-          <tr>
-            <td>Suicide Prevention Hotline</td>
-            <td>(800) 273-8255</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
     <!-- ADD ENTRY -->
@@ -257,6 +188,41 @@
       </div>
     </main>
 
+    <main class="site-content overview">
+      <div class="table-div">
+        <table id="tracker-table" class="ui very basic selectable celled table">
+          <thead id="category">
+            <tr>
+              <td>Date</td>
+              <td>Mood</td>
+              <td>Log</td>
+              <td>Comments</td>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Daily Summary -->
+      <div id="summary-modal" class="modal">
+        <div class="modal-content summary">
+          <!-- DATE -->
+          <h3 id="display-date"></h3>
+          <!-- QUESTION ANSWERS -->
+          <div id="question-answers">
+            <div id="answer-1"></div>
+            <div id="answer-2"></div>
+            <div id="answer-3"></div>
+          </div>
+          <!-- COMMENTS -->
+          <div id="display-comments-overview"></div>
+          <button id="close-btn" class="modal-btn">Close</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- GRAPH -->
+
     <!-- FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
@@ -264,12 +230,14 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-database.js"></script>
 
     <!-- JAVASCRIPT, JQUERY -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
-</body>
-
+  </body>
 </html>
